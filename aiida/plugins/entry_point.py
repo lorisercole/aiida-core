@@ -12,13 +12,13 @@ import enum
 import traceback
 import functools
 
-try:
-    from reentry.default_manager import PluginManager
-    # I don't use the default manager as it has scan_for_not_found=True
-    # by default, which re-runs scan if no entrypoints are found
-    ENTRYPOINT_MANAGER = PluginManager(scan_for_not_found=False)
-except ImportError:
-    import pkg_resources as ENTRYPOINT_MANAGER
+# try:
+#     from reentry.default_manager import PluginManager
+#     # I don't use the default manager as it has scan_for_not_found=True
+#     # by default, which re-runs scan if no entrypoints are found
+#     ENTRYPOINT_MANAGER = PluginManager(scan_for_not_found=False)
+# except ImportError:
+import pkg_resources as ENTRYPOINT_MANAGER
 
 from aiida.common.exceptions import MissingEntryPointError, MultipleEntryPointError, LoadingEntryPointError
 
