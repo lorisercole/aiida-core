@@ -31,6 +31,10 @@ from aiida.manage.configuration import load_documentation_profile
 # default profile of the AiiDA installation does not use a Django backend.
 load_documentation_profile()
 
+# Populate entry point cache
+from aiida.plugins.entry_point import ENTRYPOINT_MANAGER
+ENTRYPOINT_MANAGER.scan()
+
 # If we are not on READTHEDOCS load the Sphinx theme manually
 if not os.environ.get('READTHEDOCS', None):
     import sphinx_rtd_theme
