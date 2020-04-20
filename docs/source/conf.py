@@ -31,11 +31,7 @@ from aiida.manage.configuration import load_documentation_profile
 # default profile of the AiiDA installation does not use a Django backend.
 load_documentation_profile()
 
-# If we are not on READTHEDOCS load the Sphinx theme manually
-if not os.environ.get('READTHEDOCS', None):
-    import sphinx_rtd_theme
-    html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+ON_RTD = os.environ.get('READTHEDOCS', None)
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -54,6 +50,8 @@ extensions = [
     'sphinx.ext.imgmath', 'sphinx.ext.ifconfig', 'sphinx.ext.todo', 'IPython.sphinxext.ipython_console_highlighting',
     'IPython.sphinxext.ipython_directive', 'sphinxcontrib.contentui', 'aiida.sphinxext'
 ]
+if ON_RTD:
+    extensions.append('sphinx_search.extension')
 ipython_mplbackend = ''
 
 todo_include_todos = True
@@ -133,6 +131,12 @@ intersphinx_mapping = {
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 # html_theme = 'default'
+# If we are not on READTHEDOCS load the Sphinx theme manually
+if not ON_RTD:
+    import sphinx_rtd_theme
+    html_theme = 'sphinx_rtd_theme'
+    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
 
 # Enable labeling for figures
 numfig = True
